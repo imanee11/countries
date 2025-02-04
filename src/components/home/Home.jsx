@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { countires } from '../../constants';
 import NavBar from '../../layouts/NavBar';
 
 import { IoIosSearch } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
+import { DarkModeContext } from '../../context/DarkModeContext';
 
 
 const Home = () => {
+
+    //~dark mode
+    const { darkMode, setDarkMode } = useContext(DarkModeContext);
+    
 
     let navigate = useNavigate();
 
@@ -43,18 +48,18 @@ const Home = () => {
 
     return (
         <>
-            <div className='bg-[#FAFAFA]' >
+            <div className={darkMode ? 'bg-[#202C37]' : 'bg-[#FAFAFA]'} >
                 <NavBar />
                 <div className='py-10 px-[5vw] flex justify-between items-center'>
                     {/* left */}
-                    <div className='relative text-[#858585]'>
+                    <div className='relative '>
                         <input
                             value={searchTerm}
                             onChange={handleInputChange}
-                            className='w-[30vw] bg-white placeholder:text-[13px] placeholder:font-medium py-3 rounded-md shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] px-5 pl-10' type="text" placeholder='Search for a country...'
+                            className={`w-[30vw] placeholder:text-[13px] placeholder:font-medium py-3 rounded-md shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] px-5 pl-10 ${darkMode ? 'bg-[#2B3945] text-white' : 'bg-white text-[#858585]'}`} type="text" placeholder='Search for a country...'
                         />
 
-                        <IoIosSearch className='absolute left-3 top-1/2 transform -translate-y-1/2 font-bold' size={18} />
+                        <IoIosSearch className={`absolute left-3 top-1/2 transform -translate-y-1/2 font-bold ${darkMode ? 'text-white' : 'text-[#858585]'}`} size={18} />
                     </div>
 
                     {/* right */}
@@ -62,15 +67,15 @@ const Home = () => {
                         <select
                             value={selectedRegion}
                             onChange={handleSelectChange}
-                            className='border-none bg-white placeholder:text-[13px] placeholder:font-medium py-3 rounded-md shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] px-5 text-[14px] appearance-none'
+                            className={`border-none placeholder:font-medium py-3 rounded-md shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] px-5 text-[14px] appearance-none ${darkMode ? 'bg-[#2B3945] text-white' : 'bg-white text-[#858585]'}`}
                         >
                             <option value="" disabled className='text-gray-500'>Filter by Region</option>
-                            <option value="All" className='text-gray-500'>All</option>
-                            <option value="Africa" className='text-black'>Africa</option>
-                            <option value="America" className='text-black'>America</option>
-                            <option value="Asia" className='text-black'>Asia</option>
-                            <option value="Europe" className='text-black'>Europe</option>
-                            <option value="Oceania" className='text-black'>Oceania</option>
+                            <option value="All" className={darkMode ? 'text-white' : 'text-black'}>All</option>
+                            <option value="Africa" className={darkMode ? 'text-white' : 'text-black'}>Africa</option>
+                            <option value="Americas" className={darkMode ? 'text-white' : 'text-black'}>America</option>
+                            <option value="Asia" className={darkMode ? 'text-white' : 'text-black'}>Asia</option>
+                            <option value="Europe" className={darkMode ? 'text-white' : 'text-black'}>Europe</option>
+                            <option value="Oceania" className={darkMode ? 'text-white' : 'text-black'}>Oceania</option>
                         </select>
                     </div>
                 </div>
@@ -81,13 +86,13 @@ const Home = () => {
                         {
                             filteredData.map((e) => (
                                 <div key={e.name}>
-                                    <div onClick={() => navigate(`/about/${e.name}`)} className='bg-white shadow-md rounded-md h-[55vh] cursor-pointer'>
+                                    <div onClick={() => navigate(`/about/${e.name}`)} className={`shadow-md rounded-md h-[55vh] cursor-pointer ${darkMode ? 'bg-[#2B3945]' : 'bg-white'}`}>
                                         <img src={e.flag} alt="" className='w-full h-[170px] object-cover rounded-t-md' />
                                         <div className='p-5'>
-                                            <p className='font-bold'>{e.name}</p>
-                                            <p className='text-[#858585] text-[14px] pt-3'><span className='font-bold text-black'>Population:</span> {e.population}</p>
-                                            <p className='text-[#858585] text-[14px]'><span className='font-bold  text-black'>Region:</span> {e.region}</p>
-                                            <p className='text-[#858585] text-[14px]'><span className='font-bold text-black'>Capital:</span> {e.capital}</p>
+                                            <p className={`font-bold ${darkMode ? 'text-white' : 'text-black'} `}>{e.name}</p>
+                                            <p className={`text-[14px] pt-3 ${darkMode ? 'text-[#cdcccc]' : 'text-[#858585]'} `}><span className={`font-bold ${darkMode ? 'text-white' : 'text-black'}`}>Population:</span> {e.population}</p>
+                                            <p className={`text-[14px] pt-1 ${darkMode ? 'text-[#cdcccc]' : 'text-[#858585]'} `}><span className={`font-bold ${darkMode ? 'text-white' : 'text-black'}`}>Region:</span> {e.region}</p>
+                                            <p className={`text-[14px] pt-1 ${darkMode ? 'text-[#cdcccc]' : 'text-[#858585]'} `}><span className={`font-bold ${darkMode ? 'text-white' : 'text-black'}`}>Capital:</span> {e.capital}</p>
                                         </div>
                                     </div>
                                 </div>

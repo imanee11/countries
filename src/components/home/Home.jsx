@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { countires } from '../../constants';
 import NavBar from '../../layouts/NavBar';
 
@@ -11,6 +11,23 @@ const Home = () => {
     let navigate = useNavigate();
 
 
+    //* search part
+    const [searchTerm, setSearchTerm] = useState('');
+    const [filteredData, setFilteredData] = useState(countires);
+
+    const handleInputChange = (event) => {
+        const { value } = event.target;
+        setSearchTerm(value);
+        filterData(value);
+    };
+
+    const filterData = (searchTerm) => {
+        const filteredData = countires.filter((e) =>
+            e.name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredData(filteredData);
+    };
+
     return (
         <>
             <div className='bg-[#FAFAFA]' >
@@ -18,7 +35,12 @@ const Home = () => {
                 <div className='py-10 px-[5vw] flex justify-between items-center'>
                     {/* left */}
                     <div className='relative text-[#858585]'>
-                        <input className='w-[30vw] bg-white placeholder:text-[13px] placeholder:font-medium py-3 rounded-md shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] px-5 pl-10' type="text" placeholder='Search for a country...' />
+                        <input
+                            value={searchTerm}
+                            onChange={handleInputChange}
+                            className='w-[30vw] bg-white placeholder:text-[13px] placeholder:font-medium py-3 rounded-md shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] px-5 pl-10' type="text" placeholder='Search for a country...' 
+                        />
+
                         <IoIosSearch className='absolute left-3 top-1/2 transform -translate-y-1/2 font-bold' size={18} />
                     </div>
 
@@ -39,10 +61,10 @@ const Home = () => {
                 <div>
                     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 px-[5vw] py-10'>
                         {
-                            countires.map((e) => (
+                            filteredData.map((e) => (
                                 <div>
                                     {/* <p>{e.name}</p> */}
-                                    <div onClick={() => navigate(`/about/${e.name}`)} className='bg-white shadow-md rounded-md h-[55vh] cursor-pointer'>
+                                    <div key={e.name} onClick={() => navigate(`/about/${e.name}`)} className='bg-white shadow-md rounded-md h-[55vh] cursor-pointer'>
                                         <img src={e.flag} alt="" className='w-full h-[170px] object-cover rounded-t-md' />
                                         <div className='p-5'>
                                             <p className='font-bold'>{e.name}</p>

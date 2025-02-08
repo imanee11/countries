@@ -15,16 +15,16 @@ const NavBar = () => {
             <nav className={`flex justify-between items-center shadow-md px-[5vw] py-[4vh] ${darkMode ? "bg-[#2B3945] text-white" : "bg-white text-black"}`}>
                 {/* left */}
                 <div>
-                    <p className='font-bold'>Where in the world?</p>
+                    <p className='font-bold lg:text-[16px] text-[14px]'>Where in the world?</p>
                 </div>
 
                 {/* right */}
                 <div>
                     <p
                         onClick={() => setDarkMode(!darkMode)}
-                        className='flex items-center gap-2 font-medium text-[15px] cursor-pointer'
+                        className='flex items-center gap-2 font-medium lg:text-[15px] text-[14px] cursor-pointer'
                     >
-                        {darkMode ? <MdOutlineLightMode size={20} /> : <MdOutlineDarkMode size={20} />}
+                        {darkMode ? <MdOutlineLightMode  /> : <MdOutlineDarkMode />}
                         {darkMode ? "Light Mode" : "Dark Mode"}
                     </p>                
                 </div>

@@ -50,15 +50,14 @@ const Home = () => {
         <>
             <div className={darkMode ? 'bg-[#202C37]' : 'bg-[#FAFAFA]'} >
                 <NavBar />
-                <div className='py-10 px-[5vw] flex justify-between items-center'>
+                <div className='py-10 px-[5vw] flex flex-col gap-[3vh] lg:gap-0 lg:flex-row lg:justify-between lg:items-center'>
                     {/* left */}
-                    <div className='relative '>
+                    <div className='relative'>
                         <input
                             value={searchTerm}
                             onChange={handleInputChange}
-                            className={`w-[30vw] placeholder:text-[13px] placeholder:font-medium py-3 rounded-md shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] px-5 pl-10 ${darkMode ? 'bg-[#2B3945] text-white' : 'bg-white text-[#858585]'}`} type="text" placeholder='Search for a country...'
+                            className={`lg:w-[30vw] w-[100%] placeholder:text-[13px] placeholder:font-medium py-3 rounded-md shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] px-5 pl-10 ${darkMode ? 'bg-[#2B3945] text-white' : 'bg-white text-[#858585]'}`} type="text" placeholder='Search for a country...'
                         />
-
                         <IoIosSearch className={`absolute left-3 top-1/2 transform -translate-y-1/2 font-bold ${darkMode ? 'text-white' : 'text-[#858585]'}`} size={18} />
                     </div>
 
@@ -82,11 +81,11 @@ const Home = () => {
 
                 {/* cards */}
                 <div>
-                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 px-[5vw] py-10'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 px-[5vw] lg:py-10'>
                         {
                             filteredData.map((e) => (
                                 <div key={e.name}>
-                                    <div onClick={() => navigate(`/about/${e.name}`)} className={`shadow-md rounded-md h-[55vh] cursor-pointer ${darkMode ? 'bg-[#2B3945]' : 'bg-white'}`}>
+                                    <div onClick={() => navigate(`/about/${e.name}`)} className={`shadow-md rounded-md lg:h-[55vh] cursor-pointer ${darkMode ? 'bg-[#2B3945]' : 'bg-white'}`}>
                                         <img src={e.flag} alt="" className='w-full h-[170px] object-cover rounded-t-md' />
                                         <div className='p-5'>
                                             <p className={`font-bold ${darkMode ? 'text-white' : 'text-black'} `}>{e.name}</p>
